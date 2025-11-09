@@ -146,9 +146,19 @@ function showModal(carCard) {
         trimContainer.appendChild(trimLabel);
         trimContainer.appendChild(trimSelect);
         
-        // Insert dropdowns after price-mpg-container
+        // Create Compare button
+        const compareButton = document.createElement('button');
+        compareButton.className = 'compare-button';
+        compareButton.textContent = 'Compare';
+        compareButton.onclick = function() {
+            // Navigate to a new page (you can customize the URL)
+            window.location.href = 'compare.html';
+        };
+        
+        // Insert dropdowns and button after price-mpg-container
         priceMpgContainer.parentNode.insertBefore(configContainer, priceMpgContainer.nextSibling);
         configContainer.parentNode.insertBefore(trimContainer, configContainer.nextSibling);
+        trimContainer.parentNode.insertBefore(compareButton, trimContainer.nextSibling);
     }
     
     // Show modal with animation

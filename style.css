@@ -284,6 +284,29 @@ border-radius: 8px;
     box-shadow: 0 0 0 2px rgba(213, 0, 0, 0.1);
 }
 
+.modal-card .compare-button {
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 20px;
+    background-color: #d50000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.modal-card .compare-button:hover {
+    background-color: #b30000;
+    transform: translateY(-1px);
+}
+
+.modal-card .compare-button:active {
+    transform: translateY(0);
+}
+
 .modal-card .tag {
     position: absolute;
     top: 15px;
