@@ -167,6 +167,120 @@
       min-width: 200px;
       text-align: center;
     }
+
+    .vehicle-popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .vehicle-popup-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .vehicle-popup {
+      background: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .vehicle-popup h2 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: #111;
+    }
+
+    .popup-dropdown-container {
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .popup-dropdown-label {
+      display: block;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .popup-dropdown-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #111;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .popup-dropdown-select:hover {
+      border-color: #d50000;
+    }
+
+    .popup-dropdown-select:focus {
+      outline: none;
+      border-color: #d50000;
+      box-shadow: 0 0 0 2px rgba(213, 0, 0, 0.1);
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      justify-content: flex-end;
+    }
+
+    .popup-cancel-btn {
+      padding: 12px 24px;
+      background-color: #f0f0f0;
+      color: #111;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .popup-cancel-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    .popup-submit-btn {
+      padding: 12px 24px;
+      background-color: #ccc;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: not-allowed;
+      transition: background-color 0.3s ease;
+    }
+
+    .popup-submit-btn.enabled {
+      background-color: #d50000;
+      cursor: pointer;
+    }
+
+    .popup-submit-btn.enabled:hover {
+      background-color: #b30000;
+    }
   </style>
 </head>
 <body>
@@ -247,6 +361,48 @@
       </tbody>
     </table>
   </section>
+
+  <!-- Vehicle Selection Popup -->
+  <div class="vehicle-popup-overlay" id="vehiclePopup">
+    <div class="vehicle-popup">
+      <h2>Select Vehicle</h2>
+      <div class="popup-dropdown-container">
+        <label class="popup-dropdown-label">Year</label>
+        <select class="popup-dropdown-select" id="popupYear">
+          <option value="">Select Year</option>
+          <option value="2025">2025</option>
+          <option value="2024">2024</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+      <div class="popup-dropdown-container">
+        <label class="popup-dropdown-label">Make</label>
+        <select class="popup-dropdown-select" id="popupMake">
+          <option value="">Select Make</option>
+          <option value="Toyota">Toyota</option>
+          <option value="Honda">Honda</option>
+          <option value="Ford">Ford</option>
+          <option value="Chevrolet">Chevrolet</option>
+        </select>
+      </div>
+      <div class="popup-dropdown-container">
+        <label class="popup-dropdown-label">Model</label>
+        <select class="popup-dropdown-select" id="popupModel">
+          <option value="">Select Model</option>
+        </select>
+      </div>
+      <div class="popup-dropdown-container">
+        <label class="popup-dropdown-label">Trim</label>
+        <select class="popup-dropdown-select" id="popupTrim">
+          <option value="">Select Trim</option>
+        </select>
+      </div>
+      <div class="popup-buttons">
+        <button class="popup-cancel-btn" onclick="closeVehiclePopup()">Cancel</button>
+        <button class="popup-submit-btn" id="popupSubmitBtn" onclick="submitVehicleChange()" disabled>Submit</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Sample car data - you can expand this
@@ -352,9 +508,192 @@
       });
     }
 
+    let currentVehicleIndex = null;
+
     function changeVehicle(index) {
-      // This function can be expanded to show a vehicle selection modal
-      alert('Vehicle selection feature coming soon!');
+      if (index === 0) {
+        // First car: navigate back to index.html
+        window.location.href = 'index.html';
+      } else {
+        // Second or third car: show popup
+        currentVehicleIndex = index;
+        openVehiclePopup();
+      }
+    }
+
+    function openVehiclePopup() {
+      const popup = document.getElementById('vehiclePopup');
+      popup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      // Reset dropdowns
+      document.getElementById('popupYear').value = '';
+      document.getElementById('popupMake').value = '';
+      document.getElementById('popupModel').value = '';
+      document.getElementById('popupTrim').value = '';
+      
+      // Reset submit button
+      const submitBtn = document.getElementById('popupSubmitBtn');
+      submitBtn.disabled = true;
+      submitBtn.classList.remove('enabled');
+      
+      // Add event listeners to dropdowns
+      setupPopupDropdowns();
+    }
+
+    function closeVehiclePopup() {
+      const popup = document.getElementById('vehiclePopup');
+      popup.classList.remove('active');
+      document.body.style.overflow = '';
+      currentVehicleIndex = null;
+    }
+
+    // Close popup when clicking outside
+    document.getElementById('vehiclePopup').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeVehiclePopup();
+      }
+    });
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const popup = document.getElementById('vehiclePopup');
+        if (popup.classList.contains('active')) {
+          closeVehiclePopup();
+        }
+      }
+    });
+
+    function setupPopupDropdowns() {
+      const yearSelect = document.getElementById('popupYear');
+      const makeSelect = document.getElementById('popupMake');
+      const modelSelect = document.getElementById('popupModel');
+      const trimSelect = document.getElementById('popupTrim');
+      const submitBtn = document.getElementById('popupSubmitBtn');
+
+      // Model options based on make
+      const modelOptions = {
+        'Toyota': ['Supra', 'Camry', 'Corolla', 'RAV4', 'Highlander'],
+        'Honda': ['Civic', 'Accord', 'CR-V', 'Pilot'],
+        'Ford': ['Mustang', 'F-150', 'Explorer', 'Escape'],
+        'Chevrolet': ['Camaro', 'Silverado', 'Tahoe', 'Equinox']
+      };
+
+      // Trim options based on model
+      const trimOptions = {
+        'Supra': ['3.0', '3.0 Premium'],
+        'Camry': ['LE', 'XLE', 'SE', 'XSE'],
+        'Corolla': ['L', 'LE', 'XLE', 'SE'],
+        'RAV4': ['LE', 'XLE', 'Adventure', 'Limited'],
+        'Highlander': ['L', 'LE', 'XLE', 'Limited'],
+        'Civic': ['LX', 'EX', 'Touring'],
+        'Accord': ['LX', 'EX', 'Touring'],
+        'CR-V': ['EX', 'EX-L', 'Touring'],
+        'Pilot': ['LX', 'EX-L', 'Touring'],
+        'Mustang': ['EcoBoost', 'GT', 'Shelby'],
+        'F-150': ['XL', 'XLT', 'Lariat', 'Platinum'],
+        'Explorer': ['Base', 'XLT', 'Limited', 'Platinum'],
+        'Escape': ['S', 'SE', 'Titanium'],
+        'Camaro': ['LT', 'SS', 'ZL1'],
+        'Silverado': ['Work Truck', 'LT', 'LTZ', 'High Country'],
+        'Tahoe': ['LS', 'LT', 'Premier'],
+        'Equinox': ['L', 'LS', 'LT', 'Premier']
+      };
+
+      function updateModelOptions() {
+        const make = makeSelect.value;
+        modelSelect.innerHTML = '<option value="">Select Model</option>';
+        trimSelect.innerHTML = '<option value="">Select Trim</option>';
+        
+        if (make && modelOptions[make]) {
+          modelOptions[make].forEach(model => {
+            const option = document.createElement('option');
+            option.value = model;
+            option.textContent = model;
+            modelSelect.appendChild(option);
+          });
+        }
+        checkSubmitButton();
+      }
+
+      function updateTrimOptions() {
+        const model = modelSelect.value;
+        trimSelect.innerHTML = '<option value="">Select Trim</option>';
+        
+        if (model && trimOptions[model]) {
+          trimOptions[model].forEach(trim => {
+            const option = document.createElement('option');
+            option.value = trim;
+            option.textContent = trim;
+            trimSelect.appendChild(option);
+          });
+        }
+        checkSubmitButton();
+      }
+
+      function checkSubmitButton() {
+        const year = yearSelect.value;
+        const make = makeSelect.value;
+        const model = modelSelect.value;
+        const trim = trimSelect.value;
+        
+        if (year && make && model && trim) {
+          submitBtn.disabled = false;
+          submitBtn.classList.add('enabled');
+        } else {
+          submitBtn.disabled = true;
+          submitBtn.classList.remove('enabled');
+        }
+      }
+
+      // Remove existing listeners and add new ones
+      makeSelect.onchange = function() {
+        updateModelOptions();
+        checkSubmitButton();
+      };
+      
+      modelSelect.onchange = function() {
+        updateTrimOptions();
+        checkSubmitButton();
+      };
+      
+      yearSelect.onchange = checkSubmitButton;
+      trimSelect.onchange = checkSubmitButton;
+    }
+
+    function submitVehicleChange() {
+      const submitBtn = document.getElementById('popupSubmitBtn');
+      if (submitBtn.disabled) return;
+
+      const year = document.getElementById('popupYear').value;
+      const make = document.getElementById('popupMake').value;
+      const model = document.getElementById('popupModel').value;
+      const trim = document.getElementById('popupTrim').value;
+
+      // Update the selected car
+      if (currentVehicleIndex !== null && selectedCars[currentVehicleIndex]) {
+        selectedCars[currentVehicleIndex] = {
+          name: `${year} ${make} ${model} ${trim}`,
+          image: defaultCar.image, // You can update this with actual image URLs
+          engine: defaultCar.engine,
+          drive: defaultCar.drive,
+          specs: {
+            engine: defaultCar.specs.engine,
+            horsepower: defaultCar.specs.horsepower,
+            tank: defaultCar.specs.tank,
+            fuel: defaultCar.specs.fuel,
+            type: defaultCar.specs.type,
+            financing: defaultCar.specs.financing,
+            leasing: defaultCar.specs.leasing
+          }
+        };
+        
+        renderCars();
+        updateComparisonTable();
+      }
+
+      closeVehiclePopup();
     }
 
     // Initialize page
