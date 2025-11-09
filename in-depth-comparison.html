@@ -289,9 +289,8 @@
         </div>
       `;
 
-      //Electric & Hybrid Section
 
-      // Hybrid & Electric Section
+    // Hybrid & Electric Section
 html += `
   <div class="comparison-section">
     <h2 class="section-title">Hybrid & Electric</h2>
@@ -303,16 +302,19 @@ selectedCars.forEach((car) => {
     <div class="car-detail-card">
       <h3>${car.name}</h3>
       <div class="specs-grid">
+        
+        <!-- Plug-in -->
         <div class="detail-item">
           <div class="detail-label">Plug-in</div>
           <div class="detail-value">Not Available</div>
         </div>
+
+        <!-- High Power Charger -->
         <div class="detail-item">
           <div class="detail-label">High Power Charger</div>
           <div class="detail-value">Not Available</div>
-           <div class="detail-label">Plug-in</div>
-          <div class="detail-value">Not Available</div>
         </div>
+
       </div>
     </div>
   `;
