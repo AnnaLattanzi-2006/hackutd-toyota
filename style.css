@@ -125,7 +125,7 @@ body {
 .tabs a {
   text-decoration: none;
   color: #000;
-  font-weight: 600;
+  font-weight: 700;
   padding-bottom: 5px;
   border-bottom: 3px solid transparent;
   cursor: pointer;
@@ -158,6 +158,7 @@ body {
 
 .slide h2 {
   font-size: 1.8rem;
+  font-weight: 700;
   margin-bottom: 20px;
   color: #111;
 }
