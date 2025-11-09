@@ -671,24 +671,53 @@
       const model = document.getElementById('popupModel').value;
       const trim = document.getElementById('popupTrim').value;
 
-      // Update the selected car
+      // Update the selected car with the chosen vehicle
       if (currentVehicleIndex !== null && selectedCars[currentVehicleIndex]) {
+        // Generate vehicle name
+        const vehicleName = `${year} ${make} ${model} ${trim}`;
+        
+        // Get image URL (you can expand this with actual image mappings)
+        let vehicleImage = defaultCar.image;
+        if (make === 'Toyota' && model === 'Supra') {
+          vehicleImage = 'https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/relative/2025/grsupra/base.png?bg=fff&fmt=webp&qlt=90&wid=345';
+        } else if (make === 'Toyota' && model === 'Camry') {
+          vehicleImage = 'https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/relative/2025/camry/base.png?bg=fff&fmt=webp&qlt=90&wid=345';
+        } else if (make === 'Toyota' && model === 'Corolla') {
+          vehicleImage = 'https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/relative/2025/corolla/base.png?bg=fff&fmt=webp&qlt=90&wid=345';
+        }
+        
+        // Generate engine description based on model
+        let engineDesc = `${model} Engine`;
+        let engineSpec = `${model} Engine`;
+        if (model === 'Supra') {
+          engineDesc = '3.0L Inline-6 Cyl. Turbo Engine';
+          engineSpec = '3.0L Inline-6 Cyl. Turbo';
+        } else if (model === 'Camry') {
+          engineDesc = '2.5L 4-Cylinder Engine';
+          engineSpec = '2.5L 4-Cylinder';
+        } else if (model === 'Corolla') {
+          engineDesc = '2.0L 4-Cylinder Engine';
+          engineSpec = '2.0L 4-Cylinder';
+        }
+        
+        // Update the car object
         selectedCars[currentVehicleIndex] = {
-          name: `${year} ${make} ${model} ${trim}`,
-          image: defaultCar.image, // You can update this with actual image URLs
-          engine: defaultCar.engine,
-          drive: defaultCar.drive,
+          name: vehicleName,
+          image: vehicleImage,
+          engine: engineDesc,
+          drive: 'Front-Wheel Drive', // Default, can be customized
           specs: {
-            engine: defaultCar.specs.engine,
-            horsepower: defaultCar.specs.horsepower,
-            tank: defaultCar.specs.tank,
-            fuel: defaultCar.specs.fuel,
-            type: defaultCar.specs.type,
-            financing: defaultCar.specs.financing,
-            leasing: defaultCar.specs.leasing
+            engine: engineSpec,
+            horsepower: '--', // Can be filled with actual data
+            tank: '--',
+            fuel: '--',
+            type: 'Gas',
+            financing: 'Available',
+            leasing: 'Available'
           }
         };
         
+        // Re-render cars and update comparison table
         renderCars();
         updateComparisonTable();
       }
