@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GR Supra vs. Competition</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .compare-page {
+      padding: 40px 60px;
+      background-color: #fff;
+    }
+
+    .compare-header {
+      margin-bottom: 40px;
+    }
+
+    .compare-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 20px;
+    }
+
+    .compare-models-btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #d50000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .compare-models-btn:hover {
+      background-color: #b30000;
+    }
+
+    .car-selection-area {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .car-display-box {
+      flex: 1;
+      min-width: 250px;
+      background: #f8f8f8;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .car-display-box img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .car-display-box h3 {
+      font-size: 1.1rem;
+      margin: 10px 0 5px;
+      color: #111;
+    }
+
+    .car-display-box p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 5px 0;
+    }
+
+    .change-vehicle-link {
+      color: #d50000;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .change-vehicle-link:hover {
+      text-decoration: underline;
+    }
+
+    .add-car-button {
+      width: 120px;
+      height: 120px;
+      background: #f0f0f0;
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 3rem;
+      color: #666;
+      flex-shrink: 0;
+    }
+
+    .add-car-button:hover {
+      background: #e0e0e0;
+      border-color: #d50000;
+      color: #d50000;
+    }
+
+    .add-car-button.hidden {
+      display: none;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 40px;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .comparison-table th {
+      background-color: #f8f8f8;
+      font-weight: 600;
+      color: #111;
+      width: 200px;
+    }
+
+    .comparison-table td {
+      background-color: #fff;
+      color: #666;
+    }
+
+    .comparison-table tr:last-child th,
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .car-column {
+      min-width: 200px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <!--img src="https://1000logos.net/wp-content/uploads/2018/02/Toyota-logo.png" alt="Toyota Logo"-->
+    </div>
+    <nav class="nav-links">
+      <a href="#">Vehicles</a>
+      <a href="#">Shopping</a>
+      <a href="#">Owners</a>
+      <div class="user-icon">👤</div>
+    </nav>
+  </header>
+
+  <section class="compare-page">
+    <div class="compare-header">
+      <h1>GR Supra vs. Competition</h1>
+      <a href="#" class="compare-models-btn">Compare GR Supra Models</a>
+    </div>
+
+    <div class="car-selection-area" id="carSelectionArea">
+      <!-- Car display boxes will be added here -->
+    </div>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="car-column" id="carHeader1"></th>
+          <th class="car-column" id="carHeader2"></th>
+          <th class="car-column" id="carHeader3"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Engine</th>
+          <td id="engine1"></td>
+          <td id="engine2"></td>
+          <td id="engine3"></td>
+        </tr>
+        <tr>
+          <th>Horsepower</th>
+          <td id="horsepower1"></td>
+          <td id="horsepower2"></td>
+          <td id="horsepower3"></td>
+        </tr>
+        <tr>
+          <th>Tank Capacity</th>
+          <td id="tank1"></td>
+          <td id="tank2"></td>
+          <td id="tank3"></td>
+        </tr>
+        <tr>
+          <th>Estimated Combined Fuel Economy</th>
+          <td id="fuel1"></td>
+          <td id="fuel2"></td>
+          <td id="fuel3"></td>
+        </tr>
+        <tr>
+          <th>Hybrid, Electric, or Gas</th>
+          <td id="type1"></td>
+          <td id="type2"></td>
+          <td id="type3"></td>
+        </tr>
+        <tr>
+          <th>Financing</th>
+          <td id="financing1"></td>
+          <td id="financing2"></td>
+          <td id="financing3"></td>
+        </tr>
+        <tr>
+          <th>Leasing</th>
+          <td id="leasing1"></td>
+          <td id="leasing2"></td>
+          <td id="leasing3"></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <script>
+    // Sample car data - you can expand this
+    const defaultCar = {
+      name: "2025 Toyota Supra 3.0",
+      image: "https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/relative/2025/grsupra/base.png?bg=fff&fmt=webp&qlt=90&wid=345",
+      engine: "3.0L Inline-6 Cyl. Turbo Engine",
+      drive: "Rear-Wheel Drive",
+      specs: {
+        engine: "3.0L Inline-6 Cyl. Turbo",
+        horsepower: "382 hp",
+        tank: "13.7 gal",
+        fuel: "23/31 MPG",
+        type: "Gas",
+        financing: "Available",
+        leasing: "Available"
+      }
+    };
+
+    let selectedCars = [];
+    const maxCars = 3;
+
+    function addCar() {
+      if (selectedCars.length >= maxCars) return;
+
+      selectedCars.push({ ...defaultCar });
+      renderCars();
+      updateComparisonTable();
+    }
+
+    function removeCar(index) {
+      selectedCars.splice(index, 1);
+      renderCars();
+      updateComparisonTable();
+    }
+
+    function renderCars() {
+      const carSelectionArea = document.getElementById('carSelectionArea');
+      carSelectionArea.innerHTML = '';
+
+      // Render existing cars
+      selectedCars.forEach((car, index) => {
+        const carBox = document.createElement('div');
+        carBox.className = 'car-display-box';
+        carBox.innerHTML = `
+          <img src="${car.image}" alt="${car.name}">
+          <h3>${car.name}</h3>
+          <p>${car.engine}</p>
+          <p>${car.drive}</p>
+          <a href="#" class="change-vehicle-link" onclick="changeVehicle(${index}); return false;">Change Vehicle</a>
+        `;
+        carSelectionArea.appendChild(carBox);
+      });
+
+      // Add "+" button if not at max
+      if (selectedCars.length < maxCars) {
+        const addButton = document.createElement('div');
+        addButton.className = 'add-car-button';
+        addButton.innerHTML = '+';
+        addButton.onclick = addCar;
+        carSelectionArea.appendChild(addButton);
+      }
+
+      // Add first car automatically if none exist
+      if (selectedCars.length === 0) {
+        addCar();
+      }
+    }
+
+    function updateComparisonTable() {
+      // Update headers
+      for (let i = 1; i <= maxCars; i++) {
+        const header = document.getElementById(`carHeader${i}`);
+        if (i <= selectedCars.length) {
+          header.textContent = selectedCars[i - 1].name;
+          header.style.display = 'table-cell';
+        } else {
+          header.textContent = '';
+          header.style.display = 'none';
+        }
+      }
+
+      // Update data cells
+      const specKeys = ['engine', 'horsepower', 'tank', 'fuel', 'type', 'financing', 'leasing'];
+      const cellIds = ['engine', 'horsepower', 'tank', 'fuel', 'type', 'financing', 'leasing'];
+
+      cellIds.forEach((key, keyIndex) => {
+        for (let i = 1; i <= maxCars; i++) {
+          const cell = document.getElementById(`${key}${i}`);
+          if (i <= selectedCars.length) {
+            cell.textContent = selectedCars[i - 1].specs[specKeys[keyIndex]] || '';
+            cell.style.display = 'table-cell';
+          } else {
+            cell.textContent = '';
+            cell.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    function changeVehicle(index) {
+      // This function can be expanded to show a vehicle selection modal
+      alert('Vehicle selection feature coming soon!');
+    }
+
+    // Initialize page
+    renderCars();
+  </script>
+</body>
+</html>
+
