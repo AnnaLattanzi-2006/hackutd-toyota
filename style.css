@@ -84,11 +84,11 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .car-card {
-  width: 22%;
+  flex: 0 0 calc(25% - 22.5px);
   background: #f8f8f8;
   border-radius: 10px;
   padding: 20px;
