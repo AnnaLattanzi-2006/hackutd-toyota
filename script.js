@@ -200,3 +200,27 @@ document.addEventListener('keydown', function(e) {
         closeModal();
     }
 });
+
+// Slideshow functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const slides = document.querySelectorAll('.slide');
+    
+    // Handle tab clicks
+    tabLinks.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the slide index from data attribute
+            const slideIndex = parseInt(this.getAttribute('data-slide'));
+            
+            // Remove active class from all tabs and slides
+            tabLinks.forEach(t => t.classList.remove('active'));
+            slides.forEach(s => s.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding slide
+            this.classList.add('active');
+            slides[slideIndex].classList.add('active');
+        });
+    });
+});

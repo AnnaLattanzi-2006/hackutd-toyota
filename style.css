@@ -110,6 +110,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 40px;
+  margin-bottom: 30px;
 }
 
 .tabs a {
@@ -118,6 +119,8 @@ body {
   font-weight: 600;
   padding-bottom: 5px;
   border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .tabs a.active {
@@ -125,10 +128,46 @@ body {
   border-color: #d50000;
 }
 
+.tabs a:hover {
+  color: #d50000;
+}
+
+.slideshow-container {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide.active {
+  display: block;
+}
+
+.slide h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Car Section */
 .cars {
   padding: 40px 60px;
-  background-color: #f6f6f6;
+  background-color: #e9e0e0;
 }
 
 .cars h2 {
