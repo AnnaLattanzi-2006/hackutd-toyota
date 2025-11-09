@@ -4,6 +4,14 @@ const modalOverlay = document.getElementById('modalOverlay');
 const modalCard = document.getElementById('modalCard');
 let selectedCarCard = null;
 
+// Trim options based on configuration
+const trimOptionsByConfig = {
+    'LE Luxury Edition': ['2.0L 4-Cyl. Engine Front-Wheel Drive'],
+    'SE Sport Edition': ['2.0L 4-Cyl. Engine Front-Wheel Drive'],
+    'XLE Executive Luxury Edition': ['2.5 4-Cyl. Engine Front-Wheel Drive', '2.5 4-Cyl All-Wheel Drive'],
+    'XSE Executive Sport Edition': ['2.5 4-Cyl. Engine Front-Wheel Drive', '2.5 4-Cyl All-Wheel Drive']
+};
+
 // Car configuration and trim data
 const carOptions = {
     'Corolla': {
@@ -191,16 +199,56 @@ function showModal(carCard) {
         defaultTrimOption.textContent = 'Select Trim';
         trimSelect.appendChild(defaultTrimOption);
         
-        // Add trim options
-        options.trims.forEach(trim => {
-            const option = document.createElement('option');
-            option.value = trim;
-            option.textContent = trim;
-            trimSelect.appendChild(option);
-        });
+        // Trim options will be populated dynamically based on configuration selection
         
         trimContainer.appendChild(trimLabel);
         trimContainer.appendChild(trimSelect);
+        
+        // Function to update trim dropdown based on configuration selection
+        const updateTrimDropdown = function(selectedConfig) {
+            console.log('Updating trim dropdown for:', selectedConfig); // Debug
+            // Clear existing options
+            trimSelect.innerHTML = '';
+            const defaultTrimOption = document.createElement('option');
+            defaultTrimOption.value = '';
+            defaultTrimOption.textContent = 'Select Trim';
+            trimSelect.appendChild(defaultTrimOption);
+            
+            // Get trim options for selected configuration
+            const trims = trimOptionsByConfig[selectedConfig] || [];
+            console.log('Trim options found:', trims); // Debug
+            console.log('trimOptionsByConfig:', trimOptionsByConfig); // Debug
+            
+            // Add trim options
+            if (trims.length > 0) {
+                trims.forEach(trim => {
+                    const option = document.createElement('option');
+                    option.value = trim;
+                    option.textContent = trim;
+                    trimSelect.appendChild(option);
+                });
+                console.log('Trim options added to dropdown'); // Debug
+            } else {
+                console.log('No trim options found for configuration:', selectedConfig); // Debug
+            }
+        };
+        
+        // Add event listener to configuration dropdown
+        configSelect.addEventListener('change', function(e) {
+            const selectedConfig = this.value;
+            console.log('Configuration changed to:', selectedConfig); // Debug
+            console.log('trimSelect element:', trimSelect); // Debug
+            if (selectedConfig) {
+                updateTrimDropdown(selectedConfig);
+            } else {
+                // Clear trim dropdown if no configuration is selected
+                trimSelect.innerHTML = '';
+                const defaultTrimOption = document.createElement('option');
+                defaultTrimOption.value = '';
+                defaultTrimOption.textContent = 'Select Trim';
+                trimSelect.appendChild(defaultTrimOption);
+            }
+        });
         
         // Create Compare button
         const compareButton = document.createElement('button');
