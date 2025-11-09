@@ -158,6 +158,113 @@ border-radius: 8px;
         text-decoration: underline;
     }
 
+/* Modal Overlay */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-card {
+    background-color: #d50000;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-card {
+    transform: scale(1);
+}
+
+.modal-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.modal-card .year {
+    color: #fff;
+    margin: 8px 0 2px;
+}
+
+.modal-card h3 {
+    font-size: 1.5rem;
+    margin: 5px 0 10px;
+    color: #fff;
+}
+
+.modal-card .price, .modal-card .mpg {
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+}
+
+.modal-card .price span, .modal-card .mpg span {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: normal;
+    font-size: 0.8rem;
+}
+
+.modal-card .price-mpg-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 6px 0;
+}
+
+.modal-card .tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #000;
+    color: #fff;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    border-radius: 5px;
+}
+
+.modal-card .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+}
+
+.modal-card .close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
 /* Responsive */
 @media (max-width: 1000px) {
     .car-card {
