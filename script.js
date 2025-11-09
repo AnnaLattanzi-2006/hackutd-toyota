@@ -1,4 +1,5 @@
-// Get modal elements
+// Get all compare links
+const compareLinks = document.querySelectorAll('.compare');
 const modalOverlay = document.getElementById('modalOverlay');
 const modalCard = document.getElementById('modalCard');
 let selectedCarCard = null;
@@ -45,30 +46,22 @@ const carOptions = {
 
 // Function to clone and display car card in modal
 function showModal(carCard) {
-    // Remove selected class from previously selected card and uncheck its checkbox
+    // Remove selected class from previously selected card
     if (selectedCarCard) {
         selectedCarCard.classList.remove('selected');
-        const prevCheckbox = selectedCarCard.querySelector('.car-checkbox');
-        if (prevCheckbox) {
-            prevCheckbox.checked = false;
-        }
     }
     
-    // Add selected class to current card and check the checkbox
+    // Add selected class to current card
     carCard.classList.add('selected');
-    const checkbox = carCard.querySelector('.car-checkbox');
-    if (checkbox) {
-        checkbox.checked = true;
-    }
     selectedCarCard = carCard;
     
     // Clone the car card content
     const clonedCard = carCard.cloneNode(true);
     
-    // Remove the checkbox from the clone
-    const checkbox = clonedCard.querySelector('.car-checkbox');
-    if (checkbox) {
-        checkbox.remove();
+    // Remove the compare link from the clone
+    const compareLink = clonedCard.querySelector('.compare');
+    if (compareLink) {
+        compareLink.remove();
     }
     
     // Clear modal card and add cloned content
@@ -168,34 +161,17 @@ function closeModal() {
     modalOverlay.classList.remove('active');
     document.body.style.overflow = ''; // Restore scrolling
     
-    // Remove selected class from the card and uncheck checkbox
+    // Remove selected class from the card
     if (selectedCarCard) {
         selectedCarCard.classList.remove('selected');
-        const checkbox = selectedCarCard.querySelector('.car-checkbox');
-        if (checkbox) {
-            checkbox.checked = false;
-        }
         selectedCarCard = null;
     }
 }
 
-// Add click event listeners to all car cards
-const carCards = document.querySelectorAll('.car-card');
-carCards.forEach(card => {
-    card.addEventListener('click', function(e) {
-        // Don't trigger if clicking directly on the checkbox (it has its own handler)
-        if (e.target.type === 'checkbox') {
-            return;
-        }
-        showModal(this);
-    });
-});
-
-// Add click event listeners to all checkboxes
-const checkboxes = document.querySelectorAll('.car-checkbox');
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('click', function(e) {
-        e.stopPropagation(); // Prevent triggering the car-card click
+// Add click event listeners to all compare links
+compareLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
         const carCard = this.closest('.car-card');
         showModal(carCard);
     });
@@ -214,4 +190,3 @@ document.addEventListener('keydown', function(e) {
         closeModal();
     }
 });
-
