@@ -4,6 +4,46 @@ const modalOverlay = document.getElementById('modalOverlay');
 const modalCard = document.getElementById('modalCard');
 let selectedCarCard = null;
 
+// Car configuration and trim data
+const carOptions = {
+    'Corolla': {
+        configurations: [],
+        trims: []
+    },
+    'Corolla Hatchback': {
+        configurations: [],
+        trims: []
+    },
+    'Camry': {
+        configurations: [],
+        trims: []
+    },
+    'Toyota Crown': {
+        configurations: [],
+        trims: []
+    },
+    'Mirai': {
+        configurations: [],
+        trims: []
+    },
+    'GR86': {
+        configurations: [],
+        trims: []
+    },
+    'GR Corolla': {
+        configurations: [],
+        trims: []
+    },
+    'GR Supra': {
+        configurations: [],
+        trims: []
+    },
+    'Sienna': {
+        configurations: [],
+        trims: []
+    }
+};
+
 // Function to clone and display car card in modal
 function showModal(carCard) {
     // Remove selected class from previously selected card
@@ -39,6 +79,76 @@ function showModal(carCard) {
     // Move all children from cloned card to modal card
     while (clonedCard.firstChild) {
         modalCard.appendChild(clonedCard.firstChild);
+    }
+    
+    // Get car name from h3 element
+    const carName = modalCard.querySelector('h3').textContent.trim();
+    const options = carOptions[carName] || { configurations: [], trims: [] };
+    
+    // Find price-mpg-container and insert dropdowns after it
+    const priceMpgContainer = modalCard.querySelector('.price-mpg-container');
+    if (priceMpgContainer) {
+        // Create configuration dropdown
+        const configContainer = document.createElement('div');
+        configContainer.className = 'dropdown-container';
+        
+        const configLabel = document.createElement('label');
+        configLabel.textContent = 'Configuration';
+        configLabel.className = 'dropdown-label';
+        
+        const configSelect = document.createElement('select');
+        configSelect.className = 'dropdown-select';
+        configSelect.id = 'configSelect';
+        
+        // Add default option
+        const defaultConfigOption = document.createElement('option');
+        defaultConfigOption.value = '';
+        defaultConfigOption.textContent = 'Select Configuration';
+        configSelect.appendChild(defaultConfigOption);
+        
+        // Add configuration options
+        options.configurations.forEach(config => {
+            const option = document.createElement('option');
+            option.value = config;
+            option.textContent = config;
+            configSelect.appendChild(option);
+        });
+        
+        configContainer.appendChild(configLabel);
+        configContainer.appendChild(configSelect);
+        
+        // Create trim dropdown
+        const trimContainer = document.createElement('div');
+        trimContainer.className = 'dropdown-container';
+        
+        const trimLabel = document.createElement('label');
+        trimLabel.textContent = 'Trim';
+        trimLabel.className = 'dropdown-label';
+        
+        const trimSelect = document.createElement('select');
+        trimSelect.className = 'dropdown-select';
+        trimSelect.id = 'trimSelect';
+        
+        // Add default option
+        const defaultTrimOption = document.createElement('option');
+        defaultTrimOption.value = '';
+        defaultTrimOption.textContent = 'Select Trim';
+        trimSelect.appendChild(defaultTrimOption);
+        
+        // Add trim options
+        options.trims.forEach(trim => {
+            const option = document.createElement('option');
+            option.value = trim;
+            option.textContent = trim;
+            trimSelect.appendChild(option);
+        });
+        
+        trimContainer.appendChild(trimLabel);
+        trimContainer.appendChild(trimSelect);
+        
+        // Insert dropdowns after price-mpg-container
+        priceMpgContainer.parentNode.insertBefore(configContainer, priceMpgContainer.nextSibling);
+        configContainer.parentNode.insertBefore(trimContainer, configContainer.nextSibling);
     }
     
     // Show modal with animation

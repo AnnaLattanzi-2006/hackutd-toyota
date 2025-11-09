@@ -249,6 +249,41 @@ border-radius: 8px;
     margin: 6px 0;
 }
 
+.modal-card .dropdown-container {
+    margin: 15px 0;
+    text-align: left;
+}
+
+.modal-card .dropdown-label {
+    display: block;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.modal-card .dropdown-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #111;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.modal-card .dropdown-select:hover {
+    border-color: #d50000;
+}
+
+.modal-card .dropdown-select:focus {
+    outline: none;
+    border-color: #d50000;
+    box-shadow: 0 0 0 2px rgba(213, 0, 0, 0.1);
+}
+
 .modal-card .tag {
     position: absolute;
     top: 15px;
