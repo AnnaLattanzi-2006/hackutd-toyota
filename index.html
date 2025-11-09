@@ -1,23 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Hackathon Project</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toyota vs. The Competition</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <div style="text-align: center;"></div>
-        <h1>Compare your options</h1>
-    </header>
+  <header class="navbar">
+    <div class="logo">
+      <!--img src="https://1000logos.net/wp-content/uploads/2018/02/Toyota-logo.png" alt="Toyota Logo"-->
+    </div>
+    <nav class="nav-links">
+      <a href="#">Vehicles</a>
+      <a href="#">Shopping</a>
+      <a href="#">Owners</a>
+      <div class="user-icon">👤</div>
+    </nav>
+  </header>
 
-    <main>
-        <p>If you're seeing this, your website is working!</p>
+  <section class="hero">
+    <h1 >Toyota vs. The Competition</h1>
+    <p>Compare Toyota models and see how we stack up against the competition.</p>
 
-        <button onclick="hello()">Click me</button>
-    </main>
+    <div class="tabs">
+      <a href="#" class="active">Cars &amp; Minivan</a>
+      <a href="#">Trucks</a>
+      <a href="#">Crossovers &amp; SUVs</a>
+      <a href="#">Electrified</a>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <section class="cars">
+    <h2>Cars &amp; Minivan</h2>
+
+    <div class="card-container">
+      <!-- Corolla -->
+      <div class="car-card">
+        <img src="https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/relative/2025/corolla/base.png?bg=fff&fmt=webp&qlt=90&wid=345" alt="Corolla">
+        <p class="year">2025</p>
+        <h3>Corolla</h3>
+        <p class="price">$22,325 <span>Starting MSRP*</span></p>
+        <p class="mpg">32/41 <span>Up to Est. MPG*</span></p>
+        <a href="#" class="compare">Compare This Vehicle</a>
+      </div>
+
+      <!-- Corolla Hatchback -->
+      <div class="car-card">
+        <img src="https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/relative/2025/corollahatchback/base.png?bg=fff&fmt=webp&qlt=90&wid=345" alt="Corolla Hatchback">
+        <p class="year">2025</p>
+        <h3>Corolla Hatchback</h3>
+        <p class="price">$23,780 <span>Starting MSRP*</span></p>
+        <p class="mpg">32/41 <span>Up to Est. MPG*</span></p>
+        <a href="#" class="compare">Compare This Vehicle</a>
+      </div>
+
+      <!-- Camry -->
+      <div class="car-card">
+        <div class="tag">Hybrid EV</div>
+        <img src="https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/relative/2025/camry/base.png?bg=fff&fmt=webp&qlt=90&wid=345" alt="Camry">
+        <p class="year">2025</p>
+        <h3>Camry</h3>
+        <p class="price">$28,700 <span>Starting MSRP*</span></p>
+        <p class="mpg">53/50 <span>Up to Est. MPG*</span></p>
+        <a href="#" class="compare">Compare This Vehicle</a>
+      </div>
+
+      <!-- Toyota Crown -->
+      <div class="car-card">
+        <div class="tag">Hybrid EV</div>
+        <img src="https://tmna.aemassets.toyota.com/is/image/toyota/toyota/jellies/relative/2025/toyotacrown/base.png?bg=fff&fmt=webp&qlt=90&wid=345" alt="Toyota Crown">
+        <p class="year">2025</p>
+        <h3>Toyota Crown</h3>
+        <p class="price">$41,440 <span>Starting MSRP*</span></p>
+        <p class="mpg">42/41 <span>Up to Est. MPG*</span></p>
+        <a href="#" class="compare">Compare This Vehicle</a>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
