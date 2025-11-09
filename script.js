@@ -209,17 +209,13 @@ function showModal(carCard) {
             console.log('Updating trim dropdown for:', selectedConfig); // Debug
             // Clear existing options
             trimSelect.innerHTML = '';
-            const defaultTrimOption = document.createElement('option');
-            defaultTrimOption.value = '';
-            defaultTrimOption.textContent = 'Select Trim';
-            trimSelect.appendChild(defaultTrimOption);
             
             // Get trim options for selected configuration
             const trims = trimOptionsByConfig[selectedConfig] || [];
             console.log('Trim options found:', trims); // Debug
             console.log('trimOptionsByConfig:', trimOptionsByConfig); // Debug
             
-            // Add trim options
+            // Add trim options (no default "Select Trim" option)
             if (trims.length > 0) {
                 trims.forEach(trim => {
                     const option = document.createElement('option');
@@ -243,10 +239,6 @@ function showModal(carCard) {
             } else {
                 // Clear trim dropdown if no configuration is selected
                 trimSelect.innerHTML = '';
-                const defaultTrimOption = document.createElement('option');
-                defaultTrimOption.value = '';
-                defaultTrimOption.textContent = 'Select Trim';
-                trimSelect.appendChild(defaultTrimOption);
             }
         });
         
