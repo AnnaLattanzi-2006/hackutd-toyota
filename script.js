@@ -7,39 +7,79 @@ let selectedCarCard = null;
 // Car configuration and trim data
 const carOptions = {
     'Corolla': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     },
     'Corolla Hatchback': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     },
     'Camry': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     },
     'Toyota Crown': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     },
     'Mirai': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     },
     'GR86': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     },
     'GR Corolla': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     },
     'GR Supra': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     },
     'Sienna': {
-        configurations: [],
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Tacoma': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Tundra': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Highlander': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Highlander Hybrid': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Toyota Crown Signia': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Land Cruiser': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Sequoia': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Corolla Hybrid': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Tacoma i-FORCE MAX': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
+        trims: []
+    },
+    'Tundra i-FORCE MAX': {
+        configurations: ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'],
         trims: []
     }
 };
@@ -85,6 +125,11 @@ function showModal(carCard) {
     const carName = modalCard.querySelector('h3').textContent.trim();
     const options = carOptions[carName] || { configurations: [], trims: [] };
     
+    // Debug: Log if options are found
+    if (!carOptions[carName]) {
+        console.warn('Car name not found in carOptions:', carName);
+    }
+    
     // Find price-mpg-container and insert dropdowns after it
     const priceMpgContainer = modalCard.querySelector('.price-mpg-container');
     if (priceMpgContainer) {
@@ -107,12 +152,23 @@ function showModal(carCard) {
         configSelect.appendChild(defaultConfigOption);
         
         // Add configuration options
-        options.configurations.forEach(config => {
-            const option = document.createElement('option');
-            option.value = config;
-            option.textContent = config;
-            configSelect.appendChild(option);
-        });
+        if (options.configurations && options.configurations.length > 0) {
+            options.configurations.forEach(config => {
+                const option = document.createElement('option');
+                option.value = config;
+                option.textContent = config;
+                configSelect.appendChild(option);
+            });
+        } else {
+            // Fallback: Add default options if none found
+            const defaultOptions = ['LE Luxury Edition', 'SE Sport Edition', 'XLE Executive Luxury Edition', 'XSE Executive Sport Edition'];
+            defaultOptions.forEach(config => {
+                const option = document.createElement('option');
+                option.value = config;
+                option.textContent = config;
+                configSelect.appendChild(option);
+            });
+        }
         
         configContainer.appendChild(configLabel);
         configContainer.appendChild(configSelect);
