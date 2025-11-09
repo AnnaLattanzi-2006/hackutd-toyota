@@ -178,12 +178,27 @@ function closeModal() {
     }
 }
 
-// Add click event listeners to all compare links
-compareLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const carCard = this.closest('.car-card');
-        showModal(carCard);
+// Add click event listeners to all car cards
+document.addEventListener('DOMContentLoaded', function() {
+    const carCards = document.querySelectorAll('.car-card');
+    carCards.forEach(card => {
+        // Add click listener to the entire card
+        card.addEventListener('click', function(e) {
+            // Only trigger if not clicking directly on the compare link
+            if (!e.target.classList.contains('compare') && !e.target.closest('.compare')) {
+                showModal(this);
+            }
+        });
+        
+        // Add click listener to compare links (to prevent double-triggering)
+        const compareLink = card.querySelector('.compare');
+        if (compareLink) {
+            compareLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent triggering the car card click
+                showModal(card);
+            });
+        }
     });
 });
 
