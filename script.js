@@ -2,9 +2,19 @@
 const compareLinks = document.querySelectorAll('.compare');
 const modalOverlay = document.getElementById('modalOverlay');
 const modalCard = document.getElementById('modalCard');
+let selectedCarCard = null;
 
 // Function to clone and display car card in modal
 function showModal(carCard) {
+    // Remove selected class from previously selected card
+    if (selectedCarCard) {
+        selectedCarCard.classList.remove('selected');
+    }
+    
+    // Add selected class to current card
+    carCard.classList.add('selected');
+    selectedCarCard = carCard;
+    
     // Clone the car card content
     const clonedCard = carCard.cloneNode(true);
     
@@ -40,6 +50,12 @@ function showModal(carCard) {
 function closeModal() {
     modalOverlay.classList.remove('active');
     document.body.style.overflow = ''; // Restore scrolling
+    
+    // Remove selected class from the card
+    if (selectedCarCard) {
+        selectedCarCard.classList.remove('selected');
+        selectedCarCard = null;
+    }
 }
 
 // Add click event listeners to all compare links
