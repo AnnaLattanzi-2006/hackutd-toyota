@@ -125,9 +125,17 @@ border-radius: 8px;
     margin: 5px 0 10px;
 }
 
+.price-mpg-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 6px 0;
+}
+
 .price, .mpg {
     font-weight: 600;
-    margin: 6px 0;
+    margin: 0;
+    flex: 1;
 }
 
     .price span, .mpg span {
