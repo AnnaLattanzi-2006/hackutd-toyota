@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In-Depth Car Comparison</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .in-depth-page {
+      padding: 40px 60px;
+      background-color: #fff;
+    }
+
+    .in-depth-header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .in-depth-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    .in-depth-header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .comparison-section {
+      margin-bottom: 50px;
+      background: #f8f8f8;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #d50000;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #d50000;
+    }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .car-detail-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .car-detail-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .car-detail-card img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .car-detail-card h3 {
+      font-size: 1.5rem;
+      color: #111;
+      margin-bottom: 15px;
+    }
+
+    .detail-item {
+      margin: 15px 0;
+      padding: 10px;
+      background: #f8f8f8;
+      border-radius: 5px;
+      border-left: 4px solid #d50000;
+    }
+
+    .detail-label {
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin-bottom: 30px;
+      padding: 12px 24px;
+      background-color: #d50000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #b30000;
+    }
+
+    .no-cars-message {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+
+    .no-cars-message h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    .no-cars-message a {
+      color: #d50000;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .no-cars-message a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <!--img src="https://1000logos.net/wp-content/uploads/2018/02/Toyota-logo.png" alt="Toyota Logo"-->
+    </div>
+    <nav class="nav-links">
+      <a href="#">Vehicles</a>
+      <a href="#">Shopping</a>
+      <a href="#">Owners</a>
+      <div class="user-icon">👤</div>
+    </nav>
+  </header>
+
+  <section class="in-depth-page">
+    <a href="compare.html" class="back-button">← Back to Comparison</a>
+    
+    <div class="in-depth-header">
+      <h1>In-Depth Car Comparison</h1>
+      <p>Detailed analysis of your selected vehicles</p>
+    </div>
+
+    <div id="comparisonContent">
+      <!-- Content will be dynamically generated -->
+    </div>
+  </section>
+
+  <script>
+    // Retrieve cars from localStorage
+    const savedCars = localStorage.getItem('selectedCarsForComparison');
+    const selectedCars = savedCars ? JSON.parse(savedCars) : [];
+    const comparisonContent = document.getElementById('comparisonContent');
+
+    if (selectedCars.length === 0) {
+      comparisonContent.innerHTML = `
+        <div class="no-cars-message">
+          <h2>No Cars Selected</h2>
+          <p>Please go back to the comparison page and select cars to compare.</p>
+          <a href="compare.html">Go to Comparison Page</a>
+        </div>
+      `;
+    } else {
+      // Generate detailed comparison sections
+      let html = '';
+
+      // Overview Section
+      html += `
+        <div class="comparison-section">
+          <h2 class="section-title">Vehicle Overview</h2>
+          <div class="cars-grid">
+      `;
+      
+      selectedCars.forEach((car, index) => {
+        html += `
+          <div class="car-detail-card">
+            <img src="${car.image || 'https://via.placeholder.com/400x300?text=Car+Image'}" alt="${car.name}">
+            <h3>${car.name}</h3>
+            <div class="detail-item">
+              <div class="detail-label">Engine</div>
+              <div class="detail-value">${car.engine || car.specs?.engine || 'N/A'}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Drive Type</div>
+              <div class="detail-value">${car.drive || 'N/A'}</div>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+      `;
+
+      // Performance Section
+      html += `
+        <div class="comparison-section">
+          <h2 class="section-title">Performance Specifications</h2>
+          <div class="cars-grid">
+      `;
+      
+      selectedCars.forEach((car) => {
+        html += `
+          <div class="car-detail-card">
+            <h3>${car.name}</h3>
+            <div class="specs-grid">
+              <div class="detail-item">
+                <div class="detail-label">Engine</div>
+                <div class="detail-value">${car.specs?.engine || 'N/A'}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Horsepower</div>
+                <div class="detail-value">${car.specs?.horsepower || 'N/A'}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Fuel Economy</div>
+                <div class="detail-value">${car.specs?.fuel || 'N/A'}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Fuel Type</div>
+                <div class="detail-value">${car.specs?.type || 'N/A'}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Tank Capacity</div>
+                <div class="detail-value">${car.specs?.tank || 'N/A'}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+      `;
+
+      // Financial Options Section
+      html += `
+        <div class="comparison-section">
+          <h2 class="section-title">Financial Options</h2>
+          <div class="cars-grid">
+      `;
+      
+      selectedCars.forEach((car) => {
+        html += `
+          <div class="car-detail-card">
+            <h3>${car.name}</h3>
+            <div class="specs-grid">
+              <div class="detail-item">
+                <div class="detail-label">Financing</div>
+                <div class="detail-value">${car.specs?.financing || 'N/A'}</div>
+              </div>
+              <div class="detail-item">
+                <div class="detail-label">Leasing</div>
+                <div class="detail-value">${car.specs?.leasing || 'N/A'}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+      `;
+
+      // Additional Details Section
+      html += `
+        <div class="comparison-section">
+          <h2 class="section-title">Additional Details</h2>
+          <div class="cars-grid">
+      `;
+      
+      selectedCars.forEach((car) => {
+        html += `
+          <div class="car-detail-card">
+            <h3>${car.name}</h3>
+            <div class="detail-item">
+              <div class="detail-label">Full Vehicle Name</div>
+              <div class="detail-value">${car.name}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Engine Description</div>
+              <div class="detail-value">${car.engine || 'N/A'}</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Drive Configuration</div>
+              <div class="detail-value">${car.drive || 'N/A'}</div>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+      `;
+
+      comparisonContent.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
+
