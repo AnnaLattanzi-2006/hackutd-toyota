@@ -38,21 +38,27 @@
     }
 
     .car-selection-area {
-      display: flex;
+      display: grid;
+      grid-template-columns: 200px repeat(3, 1fr);
       gap: 20px;
       margin-bottom: 40px;
-      flex-wrap: wrap;
+      align-items: start;
+    }
+
+    .car-selection-area::before {
+      content: '';
+      grid-column: 1;
     }
 
     .car-display-box {
-      flex: 1;
-      min-width: 250px;
+      width: 100%;
       background: #f8f8f8;
       border-radius: 10px;
       padding: 20px;
       text-align: center;
       position: relative;
     }
+
 
     .car-display-box img {
       width: 100%;
@@ -86,7 +92,7 @@
     }
 
     .add-car-button {
-      width: 120px;
+      width: 100%;
       height: 120px;
       background: #f0f0f0;
       border: 2px dashed #ccc;
@@ -98,8 +104,8 @@
       transition: all 0.3s ease;
       font-size: 3rem;
       color: #666;
-      flex-shrink: 0;
     }
+
 
     .add-car-button:hover {
       background: #e0e0e0;
@@ -115,6 +121,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 40px;
+      table-layout: fixed;
     }
 
     .comparison-table th,
@@ -124,7 +131,7 @@
       border-bottom: 1px solid #ddd;
     }
 
-    .comparison-table th {
+    .comparison-table th:first-child {
       background-color: #f8f8f8;
       font-weight: 600;
       color: #111;
@@ -142,7 +149,7 @@
     }
 
     .car-column {
-      min-width: 200px;
+      width: calc((100% - 200px) / 3);
       text-align: center;
     }
   </style>
@@ -269,6 +276,8 @@
       selectedCars.forEach((car, index) => {
         const carBox = document.createElement('div');
         carBox.className = 'car-display-box';
+        // Position each car box in its corresponding column (index + 2, since column 1 is spacer)
+        carBox.style.gridColumn = (index + 2).toString();
         carBox.innerHTML = `
           <img src="${car.image}" alt="${car.name}">
           <h3>${car.name}</h3>
@@ -285,6 +294,8 @@
         addButton.className = 'add-car-button';
         addButton.innerHTML = '+';
         addButton.onclick = addCar;
+        // Position the button in the next available column (selectedCars.length + 2, since column 1 is spacer)
+        addButton.style.gridColumn = (selectedCars.length + 2).toString();
         carSelectionArea.appendChild(addButton);
       }
 
